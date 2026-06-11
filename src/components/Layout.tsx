@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import {
@@ -36,7 +36,32 @@ export const Layout: React.FC<LayoutProps> = ({
   onSelectCalculator,
   children,
 }) => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, tl } = useLanguage();
+  // Set HTML language attribute and SEO meta tags
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.title = t('app.title');
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', t('app.subtitle'));
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = t('app.subtitle');
+      document.head.appendChild(meta);
+    }
+  }, [language, t]);
+
+  const toggleLanguage = () => {
+    if (language === 'zh') {
+      setLanguage('zh_hans');
+    } else if (language === 'zh_hans') {
+      setLanguage('en');
+    } else {
+      setLanguage('zh');
+    }
+  };
+  const displayLang = language === 'zh_hans' ? 'zh' : language;
   const { theme, toggleTheme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -96,6 +121,14 @@ export const Layout: React.FC<LayoutProps> = ({
   }, [searchQuery, selectedCategory]);
 
   const toggleLanguage = () => {
+    if (language === 'zh') {
+      setLanguage('zh_hans');
+    } else if (language === 'zh_hans') {
+      setLanguage('en');
+    } else {
+      setLanguage('zh');
+    }
+  }
     setLanguage(language === 'zh' ? 'en' : 'zh');
   };
 
@@ -164,7 +197,7 @@ export const Layout: React.FC<LayoutProps> = ({
               >
                 <div className="flex items-center gap-2">
                   {getCategoryIcon(key)}
-                  <span className="truncate max-w-[140px]">{value[language]}</span>
+                  <span className="truncate max-w-[140px]">{tl(value)}</span>
                 </div>
                 <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/70 dark:bg-slate-900/60 text-text-muted font-mono border border-border-card/30">
                   {count}
@@ -203,10 +236,10 @@ export const Layout: React.FC<LayoutProps> = ({
                 >
                   <div className="min-w-0 pr-2">
                     <div className="text-xs truncate font-display font-medium">
-                      {c.name[language]}
+                      {tl(c.name)}
                     </div>
                     <div className="text-[9px] text-text-muted truncate mt-0.5">
-                      {c.subtitle[language]}
+                      {tl(c.subtitle)}
                     </div>
                   </div>
                   <ChevronRight size={12} className="shrink-0 text-text-muted" />
@@ -321,14 +354,8 @@ export const Layout: React.FC<LayoutProps> = ({
 
           {/* Top Actions: Keep header relatively clean, toggles placed here on desktop */}
           <div className="flex items-center gap-2">
-            {/* Round inline language toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="p-2 rounded-full bg-white/80 dark:bg-slate-900/80 border border-border-card hover:border-accent-pink-solid dark:hover:border-accent-blue-solid text-text-body hover:text-text-title shadow-sm transition-all cursor-pointer select-none"
-              title={language === 'zh' ? 'Switch to English' : '切換至中文'}
-            >
-              <Globe size={14} />
-            </button>
+            {/* Language Selector */}
+            <LanguageSelector />
 
             {/* Round inline theme toggle */}
             <button
