@@ -12,13 +12,29 @@
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Pocket MedCalc | 全球內科臨床醫學計算機</title>
     <meta name="description" content="專為全球內科醫護人員設計的高階臨床計算與風險評估工具。支援心臟內科 CHA₂DS₂-VASc 評分與腎臟內科 FeNa 鈉排泄分數，即時連動計算、多語系支援與小麻臨床指引。" />
-    <meta name="theme-color" content="#070b14" />
-    <script type="module" crossorigin src="/Pocket_medicine_calculator/assets/index-CYVzhl58.js"></script>
-    <link rel="stylesheet" crossorigin href="/Pocket_medicine_calculator/assets/index-CxMovw1Z.css">
-  </head>
+
+    <!-- PWA Theme & Colors -->
+    <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)" />
+
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="MedCalc" />
+    <link rel="apple-touch-icon" href="/Pocket_medicine_calculator/pwa-icon-512.png" />
+
+    <!-- Open Graph (Social Sharing) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pocket MedCalc — 臨床醫學計算機" />
+    <meta property="og:description" content="218+ 醫學臨床計算機，涵蓋 21 個科別。離線可用，完全免費。" />
+    <meta property="og:url" content="https://dodoisgood.github.io/Pocket_medicine_calculator/" />
+    <meta property="og:image" content="https://dodoisgood.github.io/Pocket_medicine_calculator/pwa-icon-512.png" />
+    <script type="module" crossorigin src="/Pocket_medicine_calculator/assets/index-D4mMxnjN.js"></script>
+    <link rel="stylesheet" crossorigin href="/Pocket_medicine_calculator/assets/index-BuVzFySw.css">
+  <link rel="manifest" href="/Pocket_medicine_calculator/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/Pocket_medicine_calculator/registerSW.js"></script></head>
   <body>
     <div id="root"></div>
   </body>

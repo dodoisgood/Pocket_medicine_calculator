@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/Pocket_medicine_calculator/sw.js', { scope: '/Pocket_medicine_calculator/' })})}
